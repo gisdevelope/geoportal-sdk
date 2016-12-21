@@ -504,10 +504,10 @@ define([
                     resolutions = IMap.WMTSDEFAULTS["EPSG:3857"].resolutions ;
                     topLeftCorner = IMap.WMTSDEFAULTS["EPSG:3857"].topLeftCorner ;
                 } else if ( ["EPSG:4326", "CRS:84"].indexOf(mapProj.toUpperCase()) >= 0 ) {
-                    resolutions = IMap.WMTSDEFAULTS["EPSG:4326"].resolution7s ;
+                    resolutions = IMap.WMTSDEFAULTS["EPSG:4326"].resolutions ;
                     topLeftCorner = IMap.WMTSDEFAULTS["EPSG:4326"].topLeftCorner ;
                 } else if ( ["EPSG:2154"].indexOf(mapProj.toUpperCase()) >= 0 ) {
-                    resolutions = IMap.WMTSDEFAULTS["EPSG:2154"].resolution7s ;
+                    resolutions = IMap.WMTSDEFAULTS["EPSG:2154"].resolutions ;
                     topLeftCorner = IMap.WMTSDEFAULTS["EPSG:2154"].topLeftCorner ;
                 }
                 if (resolutions) {

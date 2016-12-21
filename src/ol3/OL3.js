@@ -2025,8 +2025,26 @@ define([
          * // TODO : vérifier que ça fonctionne : un view.setProjection semblerait plus adapte ?
          */
         OL3.prototype.setProjection = function (projection) {
+            // check if projection is handled
+            if ( typeof projection !== "string" && projection instanceof String) {
+                console.log("Projection code must be a String !") ;
+                return ;
+            }
+            var olproj = ol.proj.get(projection) ;
+            if (! olproj) {
+                console.log("Unhandled projection code for the map !") ;
+                return ;
+            }
+            // gets current center and transform it
+            var newCenter = ol.proj.transform(
+                this.libMap.getView().getCenter(),
+                this.getProjection(),
+                projection
+            ) ;
+            // FIXME : min and max zoom or resolutions from current view
+            //         availables since OL 3.17
             var view = new ol.View({
-                center : this.libMap.getView().getCenter(),
+                center : newCenter,
                 // minZoom : this.mapOptions.minZoom,
                 // maxZoom : this.mapOptions.maxZoom,
                 projection : projection,

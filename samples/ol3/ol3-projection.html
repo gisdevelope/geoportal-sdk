@@ -9,48 +9,42 @@
             height: 400px;
             width: 600px;
           }
-          #geoportalMap2 {
-            height: 400px;
-            width: 600px;
-          }
         </style>
         <script src="../../dist/ol3/GpOl3-src.js"></script>
     </head>
     <body>
-        <h1>Test du paramètre mapOptions.projection</h1>
-        <h2>CAS 1 : l'utilisateur veut afficher une carte en WebMercator.</h2>
-        <p>La projection de la carte est EPSG:3857.</p>
+        <h1>Gestion des projections de la carte</h1>
+        <h2>Modification de la projection de la carte.</h2>
+        <p>Projection de la carte :
+        <select id="proj" onchange="changeProj()">
+            <option value="EPSG:3857" selected="true">EPSG:3857</option>
+            <option value="IGNF:LAMB93">IGNF:LAMB93</option>
+            <option value="IGNF:WGS84G">IGNF:WGS84G</option>
+            <option value="EPSG:4326">EPSG:4326</option>
+            <option value="IGNF:MILLER">IGNF:MILLER</option>
+            <option value="IGNF:UTM30ETRS89">IGNF:UTM30ETRS89</option>
+            <option value="IGNF:UTM31ETRS89">IGNF:UTM31ETRS89</option>
+            <option value="IGNF:UTM32ETRS89">IGNF:UTM32ETRS89</option>
+        </select>
+        </p>
         <div id="geoportalMap1"></div>
-        <h2>CAS 2 : l'utilisateur veut afficher une carte en WGS84.</h2>
-        <p>La projection de la carte est EPSG:4326.</p>
-        <div id="geoportalMap2"></div>
         <script type="text/javascript">
-            Gp.Map.load('geoportalMap1',{
+            var map= null ;
+            function changeProj() {
+                var projselected = document.getElementById("proj").value ;
+                if (map) {
+                    map.setProjection(projselected) ;
+                }
+            }
+
+            map = Gp.Map.load('geoportalMap1',{
                 apiKey : "jhyvi0fgmnuxvfv0zjzorvdn",
+                zoom : 5,
                 projection : "EPSG:3857",
                 layersOptions : {
-                    'maCoucheWMS' : {
-                        format : "wms",
-                        title : "Cours d'eau",
-                        url : "http://services.sandre.eaufrance.fr/geo/zonage",
-                        layers : ["TronconHydrographique"]
-                    }
+                    'ORTHOIMAGERY.ORTHOPHOTOS' : {}
                 }
             });
-
-            Gp.Map.load('geoportalMap2',{
-                apiKey : "jhyvi0fgmnuxvfv0zjzorvdn",
-                projection : "EPSG:4326",
-                layersOptions : {
-                    'maCoucheWMS' : {
-                        format : "wms",
-                        title : "Cours d'eau",
-                        url : "http://services.sandre.eaufrance.fr/geo/zonage",
-                        layers : ["TronconHydrographique"]
-                    }
-                }
-            });
-
         </script>
     </body>
 </html>
