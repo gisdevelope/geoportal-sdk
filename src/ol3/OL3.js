@@ -1586,7 +1586,8 @@ define([
                 case "OSM":
                     this.logger.trace("ajout d'une couche OSM");
                     constructorOpts.source = new ol.source.OSM({
-                        url : layerOpts.url
+                        url : layerOpts.url,
+                        crossOrigin : "anonymous"
                     });
                     break;
                 default:
@@ -1841,6 +1842,9 @@ define([
             if (layerOpts.hasOwnProperty("originators")) {
                 olLayer.getSource()._originators = layerOpts.originators ;
             }
+
+            olLayer.getSource().crossOrigin = "anonymous";
+
             this._layers.push({
                 id : layerId,
                 obj : olLayer,
@@ -2758,17 +2762,27 @@ define([
          * @param {String} layerId - layer identifier
          */
         OL3.prototype.changeLayerColor = function (colorToGray,layerId) {
-
             var layerIndex = this._getLayerIndexByLayerId(layerId);
+            var gpLayer = this._layers[layerIndex];
+
+            switch (gpLayer.options.format.toUpperCase()) {
+                case "KML":
+                case "GPX":
+                case "WFS":
+                case "drawing":
+                    console.log("[OL3.prototype.changeLayerColor] warning : changeLayerColor not allowed on vector layers (layer id: " + layerId + ")");
+                    return;
+            }
 
             var lsControl = this.getLibMapControl("layerSwitcher");
             var layerOrder = lsControl._layersOrder.map(function (layer) {
                 return layer.id;
             });
 
-            var gpLayer = this._layers[layerIndex];
+
             var opacity = gpLayer.obj.getOpacity();
             var visible = gpLayer.obj.getVisible();
+            var lsControlAdvancedTools = document.getElementById(lsControl._addUID("GPshowAdvancedTools_ID_" + gpLayer.obj.gpLayerId)).checked;
 
             this.libMap.removeLayer(gpLayer.obj);
 
@@ -2800,7 +2814,7 @@ define([
 
             // update layer switcher display
             this._addLayerConfToLayerSwitcher(gpLayer.obj, gpLayer.options);
-            document.getElementById(lsControl._addUID("GPshowAdvancedTools_ID_" + gpLayer.obj.gpLayerId)).checked = true;
+            document.getElementById(lsControl._addUID("GPshowAdvancedTools_ID_" + gpLayer.obj.gpLayerId)).checked = lsControlAdvancedTools;
 
             // update layer order
             var maxZIndex = layerOrder.length;
@@ -2813,7 +2827,6 @@ define([
                 }
             }
             // update layer properties
-            document.getElementById(lsControl._addUID("GPlayerColorInput_ID_" + gpLayer.obj.gpLayerId)).checked = colorToGray;
             gpLayer.obj.setOpacity(opacity);
             gpLayer.obj.setVisible(visible);
         };
