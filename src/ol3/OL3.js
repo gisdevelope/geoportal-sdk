@@ -1393,7 +1393,7 @@ define([
                 //  - add option for making popup opened or not at startup
 
             }
-        },
+        };
 
         /**
          * get layer params from OL3 layer params
@@ -1535,6 +1535,7 @@ define([
                     var sourceOpts = {
                         url : layerOpts.url,
                         params : params,
+                        // ajout pour pouvoir utiliser la fonction changeLayerColor
                         crossOrigin : "anonymous"
                     } ;
                     if (layerOpts.hasOwnProperty("projection")) {
@@ -1562,6 +1563,7 @@ define([
                         format : layerOpts.outputFormat,
                         version : layerOpts.version,
                         style : layerOpts.styleName,
+                        // ajout pour pouvoir utiliser la fonction changeLayerColor
                         crossOrigin : "anonymous",
                         tileGrid : new ol.tilegrid.WMTS({
                             origin : [
@@ -1587,6 +1589,7 @@ define([
                     this.logger.trace("ajout d'une couche OSM");
                     constructorOpts.source = new ol.source.OSM({
                         url : layerOpts.url,
+                        // ajout pour pouvoir utiliser la fonction changeLayerColor
                         crossOrigin : "anonymous"
                     });
                     break;
@@ -1843,6 +1846,7 @@ define([
                 olLayer.getSource()._originators = layerOpts.originators ;
             }
 
+            // ajout pour pouvoir utiliser la fonction changeLayerColor
             olLayer.getSource().crossOrigin = "anonymous";
 
             this._layers.push({
@@ -2160,7 +2164,7 @@ define([
             var ol3layers = this._getLayersObj([layerId]) ;
             if (ol3layers.length > 0) {
                 var ol3ls = this._controls[idxLS].obj ;
-                return ol3ls.getLayerDOMId(ol3layers[0].obj) ; ;
+                return ol3ls.getLayerDOMId(ol3layers[0].obj) ;
             }
             this.logger.trace("[OL3] : getLSLayerContainerDivId : layer [" + layerId + "] not found on map !") ;
             return id ;
@@ -2746,7 +2750,7 @@ define([
                 return ;
             }
             for (var key in ol3Obj) {
-                if (! typeof(key) == "string" || key.indexOf("closure_uid") < 0) {
+                if ( typeof(key) != "string" || key.indexOf("closure_uid") < 0) {
                     continue ;
                 }
                 // on a trouvé :
@@ -2756,7 +2760,7 @@ define([
         };
 
         /**
-         *  Function changing color/grayscale of a layer from its map ID
+         *  Function to disable/enable layer color (grayscale or color mode).
          *
          * @param {Boolean} colorToGray - indicate transformation nature (from or to grayscale)
          * @param {String} layerId - layer identifier
@@ -2778,7 +2782,6 @@ define([
             var layerOrder = lsControl._layersOrder.map(function (layer) {
                 return layer.id;
             });
-
 
             var opacity = gpLayer.obj.getOpacity();
             var visible = gpLayer.obj.getVisible();
