@@ -2041,12 +2041,14 @@ define([
                 this.getProjection(),
                 projection
             ) ;
-            // FIXME : min and max zoom or resolutions from current view
-            //         availables since OL 3.17
+            // adds specific resolutions
+            // TODO : affiner en fonction des codes...
+            var newResolutions = (IMap.WMTSDEFAULTS[projection] ? IMap.WMTSDEFAULTS[projection].resolutions : IMap.WMTSDEFAULTS["EPSG:3857"].resolutions) ;
             var view = new ol.View({
                 center : newCenter,
                 // minZoom : this.mapOptions.minZoom,
                 // maxZoom : this.mapOptions.maxZoom,
+                resolutions : newResolutions,
                 projection : projection,
                 rotation : this.libMap.getView().getRotation(),
                 zoom : this.getZoom()

@@ -3,11 +3,11 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <script src="../../dist/ol3/GpOl3-src.js"></script>
+        <link rel="stylesheet" href="../../dist/ol3/GpOl3-src.css" type="text/css">
         <style>
-          #geoportalMap1 {
+          #geoportalMap {
             height: 400px;
-            width: 600px;
+            width: 100%;
           }
         </style>
         <script src="../../dist/ol3/GpOl3-src.js"></script>
@@ -19,6 +19,7 @@
         <select id="proj" onchange="changeProj()">
             <option value="EPSG:3857" selected="true">EPSG:3857</option>
             <option value="IGNF:LAMB93">IGNF:LAMB93</option>
+            <option value="EPSG:2154">EPSG:2154</option>
             <option value="IGNF:WGS84G">IGNF:WGS84G</option>
             <option value="EPSG:4326">EPSG:4326</option>
             <option value="IGNF:MILLER">IGNF:MILLER</option>
@@ -27,7 +28,7 @@
             <option value="IGNF:UTM32ETRS89">IGNF:UTM32ETRS89</option>
         </select>
         </p>
-        <div id="geoportalMap1"></div>
+        <div id="geoportalMap"></div>
         <script type="text/javascript">
             var map= null ;
             function changeProj() {
@@ -37,12 +38,23 @@
                 }
             }
 
-            map = Gp.Map.load('geoportalMap1',{
+            map = Gp.Map.load('geoportalMap',{
                 apiKey : "jhyvi0fgmnuxvfv0zjzorvdn",
-                zoom : 5,
+                zoom : 6,
                 projection : "EPSG:3857",
                 layersOptions : {
-                    'ORTHOIMAGERY.ORTHOPHOTOS' : {}
+                    "ORTHOIMAGERY.ORTHOPHOTOS" : {
+                    },
+                    "ORTHOIMAGERY.ORTHOPHOTOS.BDORTHO.L93" : {
+                        visibility : true,
+                        opacity : 0.5
+                    }
+                },
+                controlsOptions : {
+                    "layerSwitcher" : {
+                        maximised : true
+                    },
+                    orientation : { },
                 }
             });
         </script>
