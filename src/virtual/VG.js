@@ -833,12 +833,14 @@ function (
                     wmsOptions : {
                         mimeType : layerOpts.outputFormat,
                         name : layerNames,
-                        style : layerOpts.styleName
+                        style : layerOpts.styleName,
+                        projection : layerOpts.projection || "EPSG:4326"
                     },
                     version : layerOpts.version,
                     minScaleDenominator : minScaleDenominator || null,
                     maxScaleDenominator : maxScaleDenominator || null,
-                    processingOptions : layerOpts.processingOptions
+                    processingOptions : layerOpts.processingOptions,
+                    bbox : layerOpts.bbox
                 };
                 break;
             case "WMTS":
