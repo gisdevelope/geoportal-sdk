@@ -19,6 +19,7 @@
         res :    "./res",
         src :    "./src",
         lib :    "./lib",
+        node_modules :    "./node_modules",
         test :   "./test",
         doc :    "./doc",
         sample : "./samples",
@@ -29,6 +30,7 @@
     var build = {
         src   : "target/src",
         lib   : "target/lib",
+        node_modules :    "./node_modules",
         test  : "target/test",
         doc   : "target/doc",
         sample : "target/samples",
@@ -207,7 +209,7 @@
             pluginsDir = "../../node_modules/geoportal-extensions-openlayers/dist/",
             // Use lib external to test dev releases of geoportal-extensions
             // pluginsDir = "../lib/external/geoportail/plugins-ol3/";
-            _deps.ol =  "../lib/external/ol3/ol";
+            _deps.ol =  "../node_modules/openlayers/dist/ol";
             _deps["gp"] = pluginsDir + "GpPluginOl3-src";
             _includes.push("ol3/OL3");
             _globalModules.push("ol");
@@ -436,10 +438,10 @@
         var svgdir   = null;
 
         if (isOl3) {
-            srcdir.push(path.join(_.lib, "external", "geoportail", "plugins-ol3", "**", "*.png"));
-            svgdir = path.join(_.lib, "external", "geoportail", "plugins-ol3", "**", "*.svg");
+            srcdir.push(path.join(_.node_modules, "geoportal-extensions-openlayers", "dist", "**", "*.png"));
+            svgdir = path.join(_.node_modules, "geoportal-extensions-openlayers", "dist", "**", "*.svg");
         } else if (isItowns) {
-            srcdir.push(path.join(_.lib, "external", "geoportail", "plugins-itowns", "**", "*.png"));
+            srcdir.push(path.join(_.node_modules, "geoportal-extensions-itowns", "dist", "**", "*.png"));
         } else if (isMixIt) {
             srcdir.push(path.join(_.lib, "external", "geoportail", "plugins-mixIt", "**", "*.png"));
             svgdir = path.join(_.lib, "external", "geoportail", "plugins-mixIt", "**", "*.svg");
@@ -473,7 +475,7 @@
         // doit on mettre la lib. dans un répertoire distinct ?
         // ex. vendor
         var builddir = path.join(build.dist, getDistDirName());
-        var srcdir   = path.join(_.lib, "external", "itowns", "js", "itowns.js");
+        var srcdir   = path.join(_.node_modules, "itowns", "dist", "itowns.js");
 
         return gulp.src(srcdir)
             .pipe(rename({
@@ -509,12 +511,12 @@
         var srcdir   = [];
 
         if (isOl3) {
-            srcdir.push(path.join(_.lib, "external", "geoportail", "plugins-ol3", "**", "*-src.css"));
-            srcdir.push(path.join(_.lib, "external", "ol3", "*.css"));
+            srcdir.push(path.join(_.node_modules, "geoportal-extensions-openlayers", "dist", "**", "*-src.css"));
+            srcdir.push(path.join(_.node_modules, "openlayers", "dist", "*.css"));
             srcdir.push(path.join(_.res, "ol3", "*.css"));
         } else if (isMixIt) {
             srcdir.push(path.join(_.lib, "external", "geoportail", "plugins-mixIt", "**", "*-src.css"));
-            srcdir.push(path.join(_.lib, "external", "ol3", "*.css"));
+            srcdir.push(path.join(_.node_modules, "openlayers", "dist", "*.css"));
             srcdir.push(path.join(_.res, "ol3", "*.css"));
             srcdir.push(path.join(_.res, "it2", "*.css"));
         } else {
