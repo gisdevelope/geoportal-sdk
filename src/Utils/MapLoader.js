@@ -6,7 +6,7 @@ import Logger from "./LoggerByDefault";
  *
  * Provide convenience method to create a Map (instance of {@link Gp.Map}) and attach it to a HTML element.
  *
- * @module
+ * @module MapLoader
  * @alias Gp.Map.load()
  */
 var MapLoader = {

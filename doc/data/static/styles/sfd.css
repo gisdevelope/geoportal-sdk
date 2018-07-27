@@ -33,13 +33,13 @@ body {
 /* HEADER */
 
 header {
-  background-image: url("../images/entete.png");
-  height : 120px ;
-  margin-bottom: 10px;
-  box-shadow: 0 0 10px #71767A;
 }
 
 .header-content {
+  height : 120px ;
+  margin-bottom: 10px;
+  box-shadow: 0 0 10px #71767A;
+  background-image: url("../images/entete.png");
   position: relative;
   max-width: 1200px;
   margin: auto;
@@ -167,35 +167,35 @@ header h1 {
 /* HEADER : RESPONSIVE DESKTOP */
 
 @media (min-width:700px) {
-  
+
   header h1 {
     font-size: 40px;
   }
-  
+
   #menu_repli {
 	  display: none;
 	}
-  
+
   #menu_depli + ul {
     display: block;
     position: relative;
     right: initial;
     margin-top: 0;
   }
-  
+
   .menu-horiz ul li {
     float: left;
   }
-  
+
   .menu-horiz ul li a {
     background-color: transparent;
     border: none;
   }
-  
+
   .menu-horiz ul li:last-child a {
     border-bottom: none;
   }
-  
+
 }
 
 /* PAGE */
@@ -331,30 +331,30 @@ header h1 {
 }
 
 @media (min-width:700px) {
-  
+
   .callToAction {
     width: 500px;
     padding: 20px 40px;
   }
-  
+
   .ctaTitle,
   .ctaBaseline {
     text-align: center;
     margin: auto;
     margin-bottom: 30px;
   }
-  
+
   .ctaTitle {
     width: 380px;
     font-size: 2.2em;
     padding-top: 10px;
   }
-  
+
   .ctaBaseline {
     width: 350px;
     font-size: 1em;
   }
-  
+
   .ctaButton {
     width: 180px;
     height: 50px;
@@ -362,33 +362,33 @@ header h1 {
     margin-bottom: 20px;
     font-size: 1.1em;
   }
-  
+
   .ctaMore {
     width: 300px;
     font-size: 1em;
   }
-  
+
 }
 
 @media (min-width:1000px) {
-  
+
   .ctaFakeMargin {
     height: 10vh;
   }
-  
+
   .callToAction {
     width: 900px;
   }
-  
+
   .ctaTitle {
     width: 520px;
     font-size: 3em;
   }
-  
+
   .ctaBaseline {
     width: 500px;
   }
-  
+
 }
 
 /* LEFT MENU */
@@ -701,16 +701,16 @@ td {
 }
 
 @media (min-width:500px) {
-  
+
   .content h1,
   .contentMaxi h1 {
     font-size: 2em;
   }
-  
+
 }
 
 @media (min-width:900px) {
-  
+
   .menu-left {
     position: relative;
     top: 0;
@@ -719,20 +719,20 @@ td {
     border-top: none;
     box-shadow: 0 0 10px #999;
   }
-  
+
   #showLeftMenu:checked + .menu-left {
     transform: translateX(0);
   }
-  
+
   .content {
     max-width: calc(100% - 290px);
   }
-  
+
   .closeLeftMenu,
   .openLeftMenu {
     display: none;
   }
-  
+
 }
 
 /* FOOTER */
